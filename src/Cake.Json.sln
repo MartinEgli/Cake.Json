@@ -1,6 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.Json", "Cake.Json\Cake.Json.csproj", "{25131E5C-E34A-446E-9364-1729B54D3DF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.Json.Tests", "Cake.Json.Tests\Cake.Json.Tests.csproj", "{83B40CBA-FF2C-4379-B2CC-A90F1A508383}"

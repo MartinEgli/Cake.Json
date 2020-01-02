@@ -8,104 +8,104 @@ namespace Cake.Json.Tests
 {
     public class JsonTests : IDisposable
     {
-        FakeCakeContext context;
+        private readonly FakeCakeContext context;
 
-        const string SERIALIZED_JSON =  @"{""Name"":""Testing"",""Items"":[""One"",""Two"",""Three""],""KeysAndValues"":{""Key"":""Value"",""AnotherKey"":""AnotherValue"",""Such"":""Wow""},""Nested"":{""Id"":0,""Value"":7.3},""Multiples"":[{""Id"":1,""Value"":14.6},{""Id"":2,""Value"":29.2},{""Id"":3,""Value"":58.4}]}";
+        private const string SERIALIZED_JSON = @"{""Name"":""Testing"",""Items"":[""One"",""Two"",""Three""],""KeysAndValues"":{""Key"":""Value"",""AnotherKey"":""AnotherValue"",""Such"":""Wow""},""Nested"":{""Id"":0,""Value"":7.3},""Multiples"":[{""Id"":1,""Value"":14.6},{""Id"":2,""Value"":29.2},{""Id"":3,""Value"":58.4}]}";
 
         private readonly string _serializedPrettyJson;
 
-        public JsonTests ()
+        public JsonTests()
         {
-            context = new FakeCakeContext ();
+            context = new FakeCakeContext();
 
-            var file = new FilePath ("./serialized_pretty.json");
+            var file = new FilePath("./serialized_pretty.json");
             _serializedPrettyJson = File.ReadAllText(file.MakeAbsolute(context.CakeContext.Environment).FullPath);
         }
 
-        public void Dispose ()
+        public void Dispose()
         {
-            context.DumpLogs ();
+            context.DumpLogs();
         }
 
         [Fact]
-        public void SerializeToString ()
+        public void SerializeToString()
         {
-            var obj = new TestObject ();
+            var obj = new TestObject();
 
-            var json = context.CakeContext.SerializeJson (obj);
+            var json = context.CakeContext.SerializeJson(obj);
 
-            Assert.NotEmpty (json);
-            Assert.Equal (SERIALIZED_JSON, json);
+            Assert.NotEmpty(json);
+            Assert.Equal(SERIALIZED_JSON, json);
         }
 
         [Fact]
-        public void SerializeToPrettyString ()
+        public void SerializeToPrettyString()
         {
-            var obj = new TestObject ();
+            var obj = new TestObject();
 
-            var json = context.CakeContext.SerializeJsonPretty (obj);
+            var json = context.CakeContext.SerializeJsonPretty(obj);
 
-            Assert.NotEmpty (json);
-            Assert.Equal (_serializedPrettyJson, json);
+            Assert.NotEmpty(json);
+            Assert.Equal(_serializedPrettyJson, json);
         }
 
         [Fact]
-        public void SerializeToFile ()
+        public void SerializeToFile()
         {
-            var obj = new TestObject ();
+            var obj = new TestObject();
 
-            var file = new FilePath ("./serialized.json");
+            var file = new FilePath("./serialized.json");
 
-            context.CakeContext.SerializeJsonToFile (file, obj);
+            context.CakeContext.SerializeJsonToFile(file, obj);
 
-            var json = File.ReadAllText (file.MakeAbsolute (context.CakeContext.Environment).FullPath);
+            var json = File.ReadAllText(file.MakeAbsolute(context.CakeContext.Environment).FullPath);
 
-            Assert.NotEmpty (json);
-            Assert.Equal (SERIALIZED_JSON, json);
+            Assert.NotEmpty(json);
+            Assert.Equal(SERIALIZED_JSON, json);
         }
 
         [Fact]
-        public void SerializeToPrettyFile ()
+        public void SerializeToPrettyFile()
         {
-            var obj = new TestObject ();
+            var obj = new TestObject();
 
-            var file = new FilePath ("./serialized_pretty.json");
+            var file = new FilePath("./serialized_pretty.json");
 
-            context.CakeContext.SerializeJsonToPrettyFile (file, obj);
+            context.CakeContext.SerializeJsonToPrettyFile(file, obj);
 
-            var json = File.ReadAllText (file.MakeAbsolute (context.CakeContext.Environment).FullPath);
+            var json = File.ReadAllText(file.MakeAbsolute(context.CakeContext.Environment).FullPath);
 
-            Assert.NotEmpty (json);
-            Assert.Equal (_serializedPrettyJson.NormalizeLineEndings(), json.NormalizeLineEndings());
+            Assert.NotEmpty(json);
+            Assert.Equal(_serializedPrettyJson.NormalizeLineEndings(), json.NormalizeLineEndings());
         }
 
         [Fact]
-        public void DeserializeFromFile ()
+        public void DeserializeFromFile()
         {
-            var file = new FilePath ("test.json");
+            var file = new FilePath("test.json");
 
-            var testObject = context.CakeContext.DeserializeJsonFromFile<TestObject> (file);
+            var testObject = context.CakeContext.DeserializeJsonFromFile<TestObject>(file);
 
-            Assert.NotNull (testObject);
-            Assert.Equal ("Testing", testObject.Name);
+            Assert.NotNull(testObject);
+            Assert.Equal("Testing", testObject.Name);
         }
 
         [Fact]
-        public void DeserializeFromString ()
+        public void DeserializeFromString()
         {
-            var testObject = context.CakeContext.DeserializeJson<TestObject> (SERIALIZED_JSON);
+            var testObject = context.CakeContext.DeserializeJson<TestObject>(SERIALIZED_JSON);
 
-            Assert.NotNull (testObject);
-            Assert.Equal ("Testing", testObject.Name);
+            Assert.NotNull(testObject);
+            Assert.Equal("Testing", testObject.Name);
         }
 
         [Fact]
-        public void ParseFromString ()
+        public void ParseFromString()
         {
             var testObject = context.CakeContext.ParseJson(SERIALIZED_JSON);
 
-            Assert.NotNull (testObject);
-            Assert.Equal ("Testing", testObject.Value<string> ("Name"));
+            Assert.NotNull(testObject);
+            Assert.Equal("Testing", testObject.Value<string>("Name"));
         }
 
         [Fact]
@@ -114,8 +114,7 @@ namespace Cake.Json.Tests
             var testObject = context.CakeContext.ParseJsonFromFile("test.json");
 
             Assert.NotNull(testObject);
-            Assert.Equal ("Testing", testObject.Value<string> ("Name"));
+            Assert.Equal("Testing", testObject.Value<string>("Name"));
         }
     }
 }
-
